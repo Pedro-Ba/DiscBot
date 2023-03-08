@@ -19,7 +19,7 @@ const client = new Discord.Client({
     ]
 })
 
-client.slashcommands = new Discord.Collection()
+client.slashcommands = new Discord.Collection();
 
 let commands = []
 
@@ -56,9 +56,8 @@ else {
 
             const slashcmd = client.slashcommands.get(interaction.commandName)
             if (!slashcmd) interaction.reply("Not a valid slash command")
-
             await interaction.deferReply()
-            await slashcmd.run({ client, interaction })
+            await slashcmd.execute(client, interaction)
         }
         handleCommand()
     })
