@@ -19,6 +19,13 @@ const client = new Discord.Client({
     ]
 })
 
+client.player = new Player(client, {
+    Options: {
+        quality: "highestaudio",
+        highWaterMark: 1 << 25
+    }
+})
+
 client.slashcommands = new Discord.Collection();
 
 let commands = []
@@ -34,7 +41,7 @@ for (const file of slashFiles){
 if (LOAD_SLASH) {
     const rest = new REST({ version: "10" }).setToken(TOKEN)
     console.log("Deploying slash commands")
-    rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {body: commands})
+    rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands})
     .then(() => {
         console.log("Successfully loaded")
         process.exit(0)
