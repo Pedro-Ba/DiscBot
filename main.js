@@ -19,7 +19,7 @@ const client = new Discord.Client({
     ]
 })
 
-client.player = new Player(client, {
+const player = Player.singleton(client, {
     Options: {
         quality: "highestaudio",
         highWaterMark: 1 << 25

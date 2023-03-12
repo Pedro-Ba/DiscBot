@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { useMasterPlayer } = require('discord-player');
+const player = useMasterPlayer();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,15 +31,13 @@ module.exports = {
             if (!channel) return interaction.reply('You are not connected to a voice channel!');
             if (interaction.options.getSubcommand() === "song") {
             const query = interaction.options.getString('url', true);
-
             try {
-                await client.player.play(channel, query, {
+                await player.play(channel, query, {
                     nodeOptions: {
                         metadata: interaction
                     }
                 });
                 interaction.editReply(`Added ${query} to queue`);
-                console.log(client.player);
             } catch (e) {
                 return interaction.followUp(`Something went wrong: ${e}`);
             }
