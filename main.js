@@ -61,10 +61,10 @@ else {
         async function handleCommand() {
             if (!interaction.isCommand()) return
 
-            const slashcmd = client.slashcommands.get(interaction.commandName)
-            if (!slashcmd) interaction.reply("Not a valid slash command")
-            await interaction.deferReply()
-            await slashcmd.execute(client, interaction)
+            const slashcmd = client.slashcommands.get(interaction.commandName);
+            if (!slashcmd) interaction.reply("Not a valid slash command");
+            await interaction.deferReply();
+            await slashcmd.execute(client, interaction);
         }
         handleCommand()
     })
