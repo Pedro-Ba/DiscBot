@@ -26,6 +26,8 @@ const player = Player.singleton(client, {
     }
 })
 
+player.extractors.loadDefault();
+
 client.slashcommands = new Discord.Collection();
 
 let commands = []
