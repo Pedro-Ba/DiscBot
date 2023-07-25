@@ -7,6 +7,7 @@ module.exports = {
     .setName("queue")
     .setDescription("displays the current song queue"),
     async execute(client, interaction) {
-        console.log(player.queues);
+        const queue = player.queues.create(interaction.guildId);
+        console.log(queue);
     }
 }
