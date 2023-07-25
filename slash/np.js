@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { useMasterPlayer } = require('discord-player');
-const player = useMasterPlayer(); //swap to singleton
+const { useMainPlayer } = require('discord-player');
+const player = useMainPlayer();
 
 module.exports = {
     data: new SlashCommandBuilder()
