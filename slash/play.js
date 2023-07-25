@@ -27,6 +27,7 @@ module.exports = {
                 )
         ),
     async execute(client, interaction) {
+        const queue = player.queues.create(interaction.guildId);
         const channel = interaction.member.voice.channel;
         if (!channel) return interaction.reply('You are not connected to a voice channel!');
         if (interaction.options.getSubcommand() === "song") {
