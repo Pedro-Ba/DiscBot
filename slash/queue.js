@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { useMasterPlayer } = require('discord-player');
-const player = useMasterPlayer();
+const { useMainPlayer } = require('discord-player');
+const player = useMainPlayer();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,6 +8,8 @@ module.exports = {
     .setDescription("displays the current song queue"),
     async execute(client, interaction) {
         const queue = player.queues.create(interaction.guildId);
-        console.log(queue);
+        for(track in queue.tracks){
+            console.log(track);
+        }
     }
 }
