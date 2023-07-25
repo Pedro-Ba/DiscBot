@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { useMasterPlayer } = require('discord-player');
+const { useMasterPlayer, QueryType } = require('discord-player');
 const player = useMasterPlayer();
 
 module.exports = {
@@ -28,8 +28,8 @@ module.exports = {
         ),
     async execute(client, interaction) {
         const channel = interaction.member.voice.channel;
-            if (!channel) return interaction.reply('You are not connected to a voice channel!');
-            if (interaction.options.getSubcommand() === "song") {
+        if (!channel) return interaction.reply('You are not connected to a voice channel!');
+        if (interaction.options.getSubcommand() === "song") {
             const query = interaction.options.getString('url', true);
             try {
                 await player.play(channel, query, {
@@ -38,6 +38,26 @@ module.exports = {
                     }
                 });
                 interaction.editReply(`Added ${query} to queue`);
+            } catch (e) {
+                return interaction.followUp(`Something went wrong: ${e}`);
+            }
+        }
+        if (interaction.options.getSubcommand() === "search"){
+            let searchTerms = interaction.options.getString("searchterms");
+            const result = await player.search(searchTerms, {
+                requestedBy: interaction.user,
+                searchEngine: QueryType.AUTO
+            });
+            
+            if (result.tracks.length === 0) return interaction.editReply("Encontrei n primo");
+            let song = result.tracks[0];
+            try {
+                await player.play(channel, song, {
+                    nodeOptions: {
+                        metadata: interaction
+                    }
+                });
+                interaction.editReply(`Added ${song.url} to queue`);
             } catch (e) {
                 return interaction.followUp(`Something went wrong: ${e}`);
             }

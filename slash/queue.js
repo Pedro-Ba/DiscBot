@@ -7,7 +7,6 @@ module.exports = {
     .setName("queue")
     .setDescription("displays the current song queue"),
     async execute(client, interaction) {
-        const queue = player.nodes.get(interaction.guildId);
-        console.log(queue.metadata);
+        console.log(player.queues);
     }
 }
