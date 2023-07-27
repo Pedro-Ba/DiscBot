@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { useMainPlayer, QueryType } = require('discord-player');
-const player = useMainPlayer;
+const player = useMainPlayer();
 
 module.exports = {
     data: new SlashCommandBuilder()
