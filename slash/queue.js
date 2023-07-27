@@ -8,8 +8,11 @@ module.exports = {
     .setDescription("displays the current song queue"),
     async execute(client, interaction) {
         const queue = player.queues.create(interaction.guildId);
-        for(track in queue.tracks){
-            console.log(track);
-        }
+        const currentSong = queue.currentTrack;
+        const currentString = `Música atual: \[${currentSong.duration}] ${currentSong.author} - ${currentSong.title} -- <@${currentSong.requestedBy.id}>`;
+        const queueString = queue.tracks.data.slice(0, 10).map((song, i) => {
+            return `${i + 1}. \[${song.duration}] ${song.title} -- <@${song.requestedBy.id}>`
+        }).join("\n")
+        interaction.editReply(currentString + '\n' + queueString);
     }
 }

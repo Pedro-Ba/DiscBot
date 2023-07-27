@@ -9,6 +9,6 @@ module.exports = {
     async execute(client, interaction) {
         const queue = player.queues.create(interaction.guildId);
         const currentSong = queue.currentTrack;
-        interaction.editReply(`Tocando ${currentSong.author} - ${currentSong.title}, link: ${currentSong.url}`)
+        interaction.editReply(`Música atual: \[${currentSong.duration}] ${currentSong.author} - ${currentSong.title} -- <@${currentSong.requestedBy.id}>`);
     }
 }
