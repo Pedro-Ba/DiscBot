@@ -4,6 +4,7 @@ const { REST } = require("@discordjs/rest")
 const { Routes } = require("discord-api-types/v9")
 const fs = require("fs")
 const { Player } = require("discord-player")
+const { FFmpeg } = require("discord-player/dist")
 
 dotenv.config()
 const TOKEN = process.env.TOKEN;
@@ -62,14 +63,21 @@ else {
     client.on("interactionCreate", (interaction) => {
         async function handleCommand() {
             if (!interaction.isCommand()) return
-
             const slashcmd = client.slashcommands.get(interaction.commandName);
             if (!slashcmd) interaction.reply("Not a valid slash command");
             await interaction.deferReply();
             await slashcmd.execute(client, interaction);
         }
+        if (interaction.isAutocomplete()){
+            const command = client.slashcommands.get(interaction.commandName);
+            try{
+                command.autocomplete(client, interaction);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
         handleCommand()
     })
     client.login(TOKEN)
 }
-
