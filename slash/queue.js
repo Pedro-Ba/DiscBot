@@ -9,9 +9,9 @@ module.exports = {
     async execute(client, interaction) {
         const queue = player.queues.create(interaction.guildId);
         const currentSong = queue.currentTrack;
-        const currentString = `Música atual: \[${currentSong.duration}] ${currentSong.author} - ${currentSong.title} -- <@${currentSong.requestedBy.id}>`;
+        const currentString = `Música atual: \[${currentSong.duration}] ${currentSong.author} - ${currentSong.title}`;
         const queueString = queue.tracks.data.slice(0, 10).map((song, i) => {
-            return `${i + 1}. \[${song.duration}] ${song.title} -- <@${song.requestedBy.id}>`
+            return `${i + 1}. \[${song.duration}] ${song.title}`
         }).join("\n")
         interaction.editReply(currentString + '\n' + queueString);
     }
