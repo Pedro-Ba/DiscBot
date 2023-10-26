@@ -8,6 +8,6 @@ module.exports={
     async execute(client, interaction){
         const queue = player.queues.create(interaction.guildId);
         queue.node.skip();
-        await interaction.editReply("Paused.")
+        await interaction.editReply("Skipped.")
     }
 }
