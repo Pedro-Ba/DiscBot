@@ -20,8 +20,25 @@ module.exports = {
     }),
     async execute(client, interaction) {
         const queue = player.queues.create(interaction.guildId);
-        queue.setRepeatMode(interaction.options.getNumber('mode', true));
-        console.log(queue.repeatMode);
-        await interaction.editReply('ok');
+        const type = interaction.options.getNumber('mode', true)
+        queue.setRepeatMode(type);
+        switch (type) {
+            case 0:
+                await interaction.editReply('The player will not repeat any tracks and will leave when the queue is empty.');
+                break;
+            case 1:
+                await interaction.editReply('The current track will be on repeat until the mode is changed.');
+                break;
+            case 2:
+                await interaction.editReply('The entire queue will be repeated until this mode is deactivated.');
+                break;
+            case 3:
+                await interaction.editReply('When the queue is empty, the player will continue to play random music that is similar to what was previously being played.');
+                break;
+            default:
+                await interaction.editReply('You should never ever fall in here. If this message ever shows up something went seriously wrong.');
+                console.log('Should be unreachable. Queue repeat mode: ' + queue.repeatMode);
+                break;
+        }
     }
 }
