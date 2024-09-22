@@ -5,6 +5,7 @@ const { Routes } = require("discord-api-types/v9")
 const fs = require("fs")
 const { Player } = require("discord-player")
 const { FFmpeg } = require("discord-player/dist")
+const { YoutubeiExtractor } = require("discord-player-youtubei")
 
 dotenv.config()
 const TOKEN = process.env.TOKEN;
@@ -28,6 +29,8 @@ const player = Player.singleton(client, {
 })
 
 player.extractors.loadDefault();
+player.extractors.register(YoutubeiExtractor, {});
+
 
 client.slashcommands = new Discord.Collection();
 
