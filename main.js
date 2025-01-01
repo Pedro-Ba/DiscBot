@@ -7,6 +7,13 @@ const { Player } = require("discord-player")
 const { FFmpeg } = require("discord-player/dist")
 const { YoutubeiExtractor } = require("discord-player-youtubei")
 
+process.on("uncaughtException", (exception) => {
+    //i know, it's stupid. but it stops crashes
+    console.log(exception.name)
+    console.log(exception.stack)
+    console.log(exception.message)
+})
+
 dotenv.config()
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
